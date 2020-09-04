@@ -6,40 +6,69 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ad</title>
     <style>
-        .download-but {
+        * {
+            margin: 0;
+        }
+        
+        body {
+            padding: 10px;
+        }
+        
+        .but {
             border: 0px solid #999;
             background-color: cadetblue;
             color: #fff;
-            padding: 10px 40px;
-            font-size: 20px;
+            padding: 5px 10px;
+            font-size: 14px;
             border-radius: 6px;
+            margin: 5px;
+        }
+        
+        .line {
+            margin: 10px;
+            border-bottom: 1px solid #999;
         }
     </style>
 </head>
 
 <body>
-    <h1>我是h5</h1>
+    <h4>我是h5</h4>
     <div id="title"></div>
     <div id="title2"></div>
     <h5>收到快应用注入的消息：</h5>
     <div id="log"></div>
-    <!-- <input type="button" value="download app" class="download-but" /> -->
+    <div class="line"></div>
+    <input type="button" value="判断app是否安装" class="but" id="verdict" />
+    <input type="button" value="下载app" class="but" id="download" />
 </body>
 <script>
     if (!window.system) {
         document.querySelector('#title').innerHTML = `<span>网页里面没有system对象</span>`;
     } else {
         document.querySelector('#title').innerHTML = `<span>网页已经被注入system对象</span>`;
-        // document.querySelector('#title2').innerHTML = `<span>system.onmessage存在？${JSON.stringify(window.system.onmessage)}</span>`;
     }
     const system = window.system;
-    document.querySelector('#log').innerHTML = `<span>123</span>`
+
+
+    document.querySelector('#verdict').onclick = function() {
+        system.postMessage(`{broadcastToQa:${JSON.stringify({
+            verdictPkgExist: {
+                package: 'com.xxx.xxx'
+            }
+        })}}`)
+    }
+
+    document.querySelector('#download').onclick = function() {
+        system.postMessage(`{broadcastToQa:${JSON.stringify({
+            downloadPackage: {
+                package: 'com.xxx.xxx'
+            }
+        })}}`)
+    }
 
     system.onmessage = function(data) {
-        // document.querySelector('#log').innerHTML = `<span>${JSON.stringify(data)}</span>`
         document.querySelector('#log').innerHTML = `<span>${data}</span>`
     }
-    system.postMessage('hello')
 </script>
 
 </html>
