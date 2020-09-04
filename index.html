@@ -19,14 +19,19 @@
 
 <body>
     <h1>我是h5~</h1>
+    <div id="title"></div>
     <h5>收到快应用注入的消息：</h5>
     <div id="log"></div>
     <!-- <input type="button" value="download app" class="download-but" /> -->
 </body>
 <script>
-    const system = window.system || alert('system not fount!')
+    if (!window.system) {
+        document.querySelector('#title').innerHTML = `<span>网页里面没有system对象</span>`;
+    }
+    const system = window.system;
     system.onmessage = function(data) {
-        document.querySelector('#log').innerHTML = `<span>${JSON.stringify(data)}</span>`
+        // document.querySelector('#log').innerHTML = `<span>${JSON.stringify(data)}</span>`
+        document.querySelector('#log').innerHTML = `<span>${JSON.stringify('sss')}</span>`
     }
     system.postMessage('hello')
 </script>
