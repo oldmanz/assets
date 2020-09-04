@@ -29,11 +29,12 @@
         document.querySelector('#title').innerHTML = `<span>网页里面没有system对象</span>`;
     } else {
         document.querySelector('#title').innerHTML = `<span>网页已经被注入system对象</span>`;
+        document.querySelector('#title').innerHTML = `<span>system.onmessage存在</span>`;
     }
     const system = window.system;
     system.onmessage = function(data) {
         // document.querySelector('#log').innerHTML = `<span>${JSON.stringify(data)}</span>`
-        document.querySelector('#log').innerHTML = `<span>${JSON.stringify('sss')}</span>`
+        document.querySelector('#log').innerHTML = `<span>${data}</span>`
     }
     system.postMessage('hello')
 </script>
