@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ad</title>
+    <style>
+        .download-but {
+            border: 0px solid #999;
+            background-color: cadetblue;
+            color: #fff;
+            padding: 10px 40px;
+            font-size: 20px;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>我是h5</h1>
+    <h5>收到快应用注入的消息：</h5>
+    <div id="log"></div>
+    <!-- <input type="button" value="download app" class="download-but" /> -->
+</body>
+<script>
+    const system = window.system // || alert('system not fount!')
+    system.onmessage = function(data) {
+        document.querySelector('#log').innerHTML = `<span>${
+            data || 'not fount'
+        }</span>`
+    }
+    system.postMessage('hello')
+</script>
+
+</html>
