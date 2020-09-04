@@ -20,6 +20,7 @@
 <body>
     <h1>我是h5~~</h1>
     <div id="title"></div>
+    <div id="title2"></div>
     <h5>收到快应用注入的消息：</h5>
     <div id="log"></div>
     <!-- <input type="button" value="download app" class="download-but" /> -->
@@ -29,7 +30,7 @@
         document.querySelector('#title').innerHTML = `<span>网页里面没有system对象</span>`;
     } else {
         document.querySelector('#title').innerHTML = `<span>网页已经被注入system对象</span>`;
-        document.querySelector('#title').innerHTML = `<span>system.onmessage存在</span>`;
+        document.querySelector('#title2').innerHTML = `<span>system.onmessage存在？${!!system.onmessage}</span>`;
     }
     const system = window.system;
     system.onmessage = function(data) {
