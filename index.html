@@ -18,7 +18,7 @@
 </head>
 
 <body>
-    <h1>我是h5~~</h1>
+    <h1>我是h5</h1>
     <div id="title"></div>
     <div id="title2"></div>
     <h5>收到快应用注入的消息：</h5>
@@ -30,9 +30,11 @@
         document.querySelector('#title').innerHTML = `<span>网页里面没有system对象</span>`;
     } else {
         document.querySelector('#title').innerHTML = `<span>网页已经被注入system对象</span>`;
-        document.querySelector('#title2').innerHTML = `<span>system.onmessage存在？${!!system.onmessage}</span>`;
+        // document.querySelector('#title2').innerHTML = `<span>system.onmessage存在？${JSON.stringify(window.system.onmessage)}</span>`;
     }
     const system = window.system;
+    document.querySelector('#log').innerHTML = `<span>123</span>`
+
     system.onmessage = function(data) {
         // document.querySelector('#log').innerHTML = `<span>${JSON.stringify(data)}</span>`
         document.querySelector('#log').innerHTML = `<span>${data}</span>`
