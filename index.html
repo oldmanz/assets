@@ -27,6 +27,8 @@
 <script>
     if (!window.system) {
         document.querySelector('#title').innerHTML = `<span>网页里面没有system对象</span>`;
+    } else {
+        document.querySelector('#title').innerHTML = `<span>网页已经被注入system对象</span>`;
     }
     const system = window.system;
     system.onmessage = function(data) {
