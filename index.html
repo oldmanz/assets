@@ -24,7 +24,7 @@
     <!-- <input type="button" value="download app" class="download-but" /> -->
 </body>
 <script>
-    const system = window.system // || alert('system not fount!')
+    const system = window.system || alert('system not fount!')
     system.onmessage = function(data) {
         document.querySelector('#log').innerHTML = `<span>${
             data || 'not fount'
