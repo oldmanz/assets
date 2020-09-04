@@ -26,9 +26,7 @@
 <script>
     const system = window.system || alert('system not fount!')
     system.onmessage = function(data) {
-        document.querySelector('#log').innerHTML = `<span>${
-            data || 'not fount'
-        }</span>`
+        document.querySelector('#log').innerHTML = `<span>${JSON.stringify(data)}</span>`
     }
     system.postMessage('hello')
 </script>
