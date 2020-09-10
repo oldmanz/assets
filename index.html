@@ -62,23 +62,30 @@
     }
 
     document.querySelector('#download').onclick = function() {
-        system.postMessage(`{broadcastToQa:${JSON.stringify({
+        system.postMessage(JSON.stringify({
+            broadcastToQa: {
                 downloadPackage: {
                     package: pkg
                 }
-            })}}`)
+            }
+        }))
     }
 
     document.querySelector('#getStatus').onclick = function() {
-        system.postMessage(`{broadcastToQa:${JSON.stringify({
-            getDownloadStatus: {
-                package: pkg
+
+        system.postMessage(JSON.stringify({
+            broadcastToQa: {
+                getDownloadStatus: {
+                    package: pkg
+                }
             }
-        })}}`)
+        }))
+
     }
 
 
     system.onmessage = function(data) {
+        alert(data)
         document.querySelector('#log').innerHTML = `<span>${data}</span>`
     }
 </script>
