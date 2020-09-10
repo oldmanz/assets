@@ -32,7 +32,7 @@
 </head>
 
 <body>
-    <h4>我是h5</h4>
+    <h4>我是h5~~</h4>
     <div id="title"></div>
     <div id="title2"></div>
     <h5>收到快应用注入的消息：</h5>
@@ -40,8 +40,11 @@
     <div class="line"></div>
     <input type="button" value="判断app是否安装" class="but" id="verdict" />
     <input type="button" value="下载app" class="but" id="download" />
+    <input type="button" value="获取下载状态" class="but" id="getStatus" />
 </body>
 <script>
+    const pkg = `com.baidu.BaiduMap`
+
     if (!window.system) {
         document.querySelector('#title').innerHTML = `<span>网页里面没有system对象</span>`;
     } else {
@@ -53,18 +56,27 @@
     document.querySelector('#verdict').onclick = function() {
         system.postMessage(`{broadcastToQa:${JSON.stringify({
             verdictPkgExist: {
-                package: 'com.xxx.xxx'
+                package: pkg
             }
         })}}`)
     }
 
     document.querySelector('#download').onclick = function() {
         system.postMessage(`{broadcastToQa:${JSON.stringify({
-            downloadPackage: {
-                package: 'com.xxx.xxx'
+                downloadPackage: {
+                    package: pkg
+                }
+            })}}`)
+    }
+
+    document.querySelector('#getStatus').onclick = function() {
+        system.postMessage(`{broadcastToQa:${JSON.stringify({
+            getDownloadStatus: {
+                package: pkg
             }
         })}}`)
     }
+
 
     system.onmessage = function(data) {
         document.querySelector('#log').innerHTML = `<span>${data}</span>`
