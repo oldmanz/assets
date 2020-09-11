@@ -53,10 +53,10 @@
     <input type="text" value="" class="but-inp" id="inputApp" />
     <input type="button" value="判断app是否安装" class="but" id="verdict" />
     <input type="button" value="下载app" class="but" id="download" />
-    <!-- <input type="button" value="获取下载状态" class="but" id="getStatus" /> -->
+    <input type="button" value="0" class="but" id="getStatus" />
 </body>
 <script>
-    let pkg = `org.mozilla.firefox`
+    let pkg = `so.ofo.labofo`
     document.querySelector('#inputApp').value = pkg
     let downloadAppStatus = '下载app'
 
@@ -167,6 +167,7 @@
         isOpen = false
         if (status == 1) {
             document.querySelector('#download').value = nowFeildName + clearNoNum(percent.toString())
+            document.querySelector('#getStatus').value = clearNoNum(percent.toString()) + '%'
 
             // 状态为下载中时，才绑定暂停事件
             // document.querySelector('#download').addEventListener('click', pause.bind(this, 'add'))
