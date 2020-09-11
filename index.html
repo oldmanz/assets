@@ -113,10 +113,10 @@
     }
 
     // 获取下载APP的状态
-    function analyticParamsForStatus(param) {
+    function analyticParamsForStatus(param, method) {
         // const _p = '{receviewFromQa:{"setSingleDownloadPkgStatus":{"package":"com.baidu.BaiduMap","status":1,"percent":9.399999618530273}}}';
         const p = JSON5.parse(param)
-        const methodProtocol = p['receviewFromQa'].setSingleDownloadPkgStatus
+        const methodProtocol = p['receviewFromQa'][method]
 
         return methodProtocol
     }
@@ -143,7 +143,6 @@
             document.querySelector('#download').value = nowFeildName + clearNoNum(percent.toString())
         } else if (status == 6) {
             document.querySelector('#download').value = nowFeildName
-            alert('打开')
             isOpen = true
         } else {
             document.querySelector('#download').value = nowFeildName
@@ -154,16 +153,21 @@
     system.onmessage = function(data) {
         try {
             if (
-                data.indexOf('setSingleDownloadPkgStatus') !== -1 ||
-                data.indexOf('hasInstalled') !== -1
+                data.indexOf('setSingleDownloadPkgStatus') !== -1
             ) {
                 const {
                     status,
                     percent
-                } = analyticParamsForStatus(data)
+                } = analyticParamsForStatus(data, 'setSingleDownloadPkgStatus')
                 setStatusView(status, percent)
             }
+            if (data.indexOf('hasInstalled') !== -1) {
+                const {
+                    hasInstalled
+                } = analyticParamsForStatus(data, 'hasInstalled')
+                setStatusView(6, '')
 
+            }
 
         } catch (error) {
 
