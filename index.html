@@ -56,7 +56,7 @@
     </div>
     <div>
         <input type="button" value="是否安装" class="but" id="verdict" />
-        <span id="install">sss</span>
+        <span id="install"></span>
 
     </div>
     <div>
@@ -81,7 +81,7 @@
     const statusEnum = new Map([
         [-1, '下载app'],
         [0, '安装'],
-        [1, '暂停:'],
+        [1, '暂停'],
         [2, '继续'],
         [3, '等待中'],
         [4, '继续(下载失败)'],
@@ -170,7 +170,7 @@
         isOpen = false
         if (status == 1) {
             document.querySelector('#download').value = nowFeildName
-            document.querySelector('#getStatus').value = clearNoNum(percent.toString()) + '%'
+
 
             // 状态为下载中时，才绑定暂停事件
             // document.querySelector('#download').addEventListener('click', pause.bind(this, 'add'))
@@ -178,13 +178,12 @@
             // document.querySelector('#download').removeEventListener('click', pause.bind(this, 'remove'))
             document.querySelector('#download').value = nowFeildName
             document.querySelector('#install').innerHTML = `<span>已安装</span>`
-            document.querySelector('#getStatus').value = clearNoNum(percent.toString()) + '%'
             isOpen = true
         } else {
             document.querySelector('#install').innerHTML = `<span>未安装</span>`
             document.querySelector('#download').value = nowFeildName
         }
-
+        document.querySelector('#getStatus').value = clearNoNum(percent.toString()) + '%'
     }
 
     system.onmessage = function(data) {
