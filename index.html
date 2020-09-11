@@ -139,13 +139,18 @@
 
     // }, 500)
     system.onmessage = function(data) {
-        if (data.indexOf('setSingleDownloadPkgStatus') !== -1) {
-            const {
-                status,
-                percent
-            } = analyticParamsForStatus(data)
-            setStatusView(status, percent)
+        try {
+            if (data.indexOf('setSingleDownloadPkgStatus') !== -1) {
+                const {
+                    status,
+                    percent
+                } = analyticParamsForStatus(data)
+                setStatusView(status, percent)
+            }
+        } catch (error) {
+
         }
+
 
         document.querySelector('#log').innerHTML = `<span>${data}</span>`
     }
