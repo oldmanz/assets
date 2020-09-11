@@ -24,6 +24,10 @@
             margin: 5px;
         }
         
+        .but-inp {
+            background-color: #fff;
+        }
+        
         .line {
             margin: 10px;
             border-bottom: 1px solid #999;
@@ -39,13 +43,16 @@
     <h5>收到快应用注入的消息：</h5>
     <div id="log"></div>
     <div class="line"></div>
+    <input type="text" value="com.sankuai.meituan" class="but-inp" id="inputApp" />
     <input type="button" value="判断app是否安装" class="but" id="verdict" />
     <input type="button" value="下载app" class="but" id="download" />
     <!-- <input type="button" value="获取下载状态" class="but" id="getStatus" /> -->
 </body>
 <script>
-    const pkg = `com.baidu.BaiduMap`
+    const pkg = ``
     let downloadAppStatus = '下载app'
+
+    let isOpen = false
 
     const statusEnum = new Map([
         [-1, '下载app'],
@@ -66,6 +73,9 @@
     }
     const system = window.system;
 
+    document.querySelector('#inputApp').onchange = function(e) {
+        pkg = this.value
+    }
 
     document.querySelector('#verdict').onclick = function() {
 
@@ -79,26 +89,29 @@
     }
 
     document.querySelector('#download').onclick = function() {
-        system.postMessage(JSON.stringify({
-            broadcastToQa: {
-                downloadPackage: {
-                    package: pkg
+        // isOpen=true直接打开app
+        if (isOpen) {
+
+            system.postMessage(JSON.stringify({
+                broadcastToQa: {
+                    openPkg: {
+                        package: pkg
+                    }
                 }
-            }
-        }))
+            }))
+        } else {
+            system.postMessage(JSON.stringify({
+                broadcastToQa: {
+                    downloadPackage: {
+                        package: pkg
+                    }
+                }
+            }))
+        }
+
+
     }
 
-    // document.querySelector('#getStatus').onclick = function() {
-
-    //         system.postMessage(JSON.stringify({
-    //             broadcastToQa: {
-    //                 getDownloadStatus: {
-    //                     package: pkg
-    //                 }
-    //             }
-    //         }))
-
-    //     }
     // 获取下载APP的状态
     function analyticParamsForStatus(param) {
         // const _p = '{receviewFromQa:{"setSingleDownloadPkgStatus":{"package":"com.baidu.BaiduMap","status":1,"percent":9.399999618530273}}}';
@@ -125,22 +138,18 @@
 
     function setStatusView(status, percent) {
         const nowFeildName = statusEnum.get(status)
+        isOpen = false
         if (status == 1) {
             document.querySelector('#download').value = nowFeildName + clearNoNum(percent.toString())
+        } else if (status == 6) {
+            document.querySelector('#download').value = nowFeildName
+            isOpen = true
         } else {
             document.querySelector('#download').value = nowFeildName
         }
 
     }
-    // const time = setInterval(() => {
-    //     const {
-    //         status,
-    //         percent
-    //     } = analyticParamsForStatus()
 
-    //     setStatusView(status, percent)
-
-    // }, 500)
     system.onmessage = function(data) {
         try {
             if (data.indexOf('setSingleDownloadPkgStatus') !== -1) {
@@ -150,6 +159,8 @@
                 } = analyticParamsForStatus(data)
                 setStatusView(status, percent)
             }
+
+
         } catch (error) {
 
         }
