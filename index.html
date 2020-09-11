@@ -29,10 +29,11 @@
             border-bottom: 1px solid #999;
         }
     </style>
+    <script src="https://unpkg.com/json5@^2.0.0/dist/index.min.js"></script>
 </head>
 
 <body>
-    <h4>我是h5~~</h4>
+    <h4>我是h5++</h4>
     <div id="title"></div>
     <div id="title2"></div>
     <h5>收到快应用注入的消息：</h5>
@@ -49,7 +50,7 @@
     const statusEnum = new Map([
         [-1, '下载app'],
         [0, '安装'],
-        [1, '安装进度'],
+        [1, '安装进度:'],
     ])
 
     if (!window.system) {
@@ -80,25 +81,58 @@
 
     document.querySelector('#getStatus').onclick = function() {
 
-        system.postMessage(JSON.stringify({
-            broadcastToQa: {
-                getDownloadStatus: {
-                    package: pkg
+            system.postMessage(JSON.stringify({
+                broadcastToQa: {
+                    getDownloadStatus: {
+                        package: pkg
+                    }
                 }
-            }
-        }))
+            }))
+
+        }
+        // 获取下载APP的状态
+    function analyticParamsForStatus(param) {
+        const _p = '{receviewFromQa:{"setSingleDownloadPkgStatus":{"package":"com.baidu.BaiduMap","status":1,"percent":9.399999618530273}}}';
+        const p = JSON5.parse(_p)
+        const methodProtocol = p['receviewFromQa'].setSingleDownloadPkgStatus
+
+        return methodProtocol
+    }
+    // 根据不同的状态分别做处置
+    function statusDispose(data) {
 
     }
 
-    function analyticParams(param) {
-        console.log(nowFeildName);
+    function clearNoNum(str) {
+        str = str.replace(/[^\d.]/g, ""); //清除“数字”和“.”以外的字符  
+        str = str.replace(/\.{2,}/g, "."); //只保留第一个. 清除多余的  
+        str = str.replace(".", "$#$").replace(/\./g, "").replace("$#$", ".");
+        str = str.replace(/^(\-)*(\d+)\.(\d).*$/, '$1$2.$3'); //只能输入两个小数  
+        if (str.indexOf(".") < 0 && str != "") { //以上已经过滤，此处控制的是如果没有小数点，首位不能为类似于 01、02的金额 
+            str = parseFloat(str);
+        }
+        return str
     }
-    setTimeout(() => {
-        const nowFeildName = statusEnum.get(1)
-        document.querySelector('#download').value = nowFeildName
-    }, 2000)
+
+    function setStatusView(status, percent) {
+        const nowFeildName = statusEnum.get(status)
+        if (status == 1) {
+            document.querySelector('#download').value = nowFeildName + clearNoNum(percent.toString())
+        } else {
+            document.querySelector('#download').value = nowFeildName
+        }
+
+    }
+    // const time = setInterval(() => {
+    //     const {
+    //         status,
+    //         percent
+    //     } = analyticParamsForStatus()
+
+    //     setStatusView(status, percent)
+
+    // }, 500)
     system.onmessage = function(data) {
-        analyticParams(data)
         document.querySelector('#log').innerHTML = `<span>${data}</span>`
     }
 </script>
