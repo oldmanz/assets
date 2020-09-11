@@ -85,18 +85,18 @@
         }))
     }
 
-    document.querySelector('#getStatus').onclick = function() {
+    // document.querySelector('#getStatus').onclick = function() {
 
-            system.postMessage(JSON.stringify({
-                broadcastToQa: {
-                    getDownloadStatus: {
-                        package: pkg
-                    }
-                }
-            }))
+    //         system.postMessage(JSON.stringify({
+    //             broadcastToQa: {
+    //                 getDownloadStatus: {
+    //                     package: pkg
+    //                 }
+    //             }
+    //         }))
 
-        }
-        // 获取下载APP的状态
+    //     }
+    // 获取下载APP的状态
     function analyticParamsForStatus(param) {
         // const _p = '{receviewFromQa:{"setSingleDownloadPkgStatus":{"package":"com.baidu.BaiduMap","status":1,"percent":9.399999618530273}}}';
         const p = JSON5.parse(param)
