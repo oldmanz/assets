@@ -37,7 +37,7 @@
 </head>
 
 <body>
-    <h4>我是h5++9922222999</h4>
+    <h4>我是h5+</h4>
     <div id="title"></div>
     <div id="title2"></div>
     <h5>收到快应用注入的消息：</h5>
@@ -74,6 +74,8 @@
     const system = window.system;
 
     document.querySelector('#inputApp').onchange = function(e) {
+        document.querySelector('#download').value = '下载app'
+
         pkg = this.value
     }
 
