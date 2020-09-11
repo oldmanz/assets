@@ -68,11 +68,14 @@
 
 
     document.querySelector('#verdict').onclick = function() {
-        system.postMessage(`{broadcastToQa:${JSON.stringify({
-            verdictPkgExist: {
-                package: pkg
+
+        system.postMessage(JSON.stringify({
+            broadcastToQa: {
+                verdictPkgExist: {
+                    package: pkg
+                }
             }
-        })}}`)
+        }))
     }
 
     document.querySelector('#download').onclick = function() {
