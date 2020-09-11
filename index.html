@@ -133,11 +133,14 @@
 
     // }, 500)
     system.onmessage = function(data) {
-        const {
-            status,
-            percent
-        } = analyticParamsForStatus(data)
-        setStatusView(status, percent)
+        if (data.indexOf('setSingleDownloadPkgStatus') !== -1) {
+            const {
+                status,
+                percent
+            } = analyticParamsForStatus(data)
+            setStatusView(status, percent)
+        }
+
         document.querySelector('#log').innerHTML = `<span>${data}</span>`
     }
 </script>
