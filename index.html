@@ -44,6 +44,13 @@
 </body>
 <script>
     const pkg = `com.baidu.BaiduMap`
+    let downloadAppStatus = '下载app'
+
+    const statusEnum = new Map([
+        [-1, '下载app'],
+        [0, '安装'],
+        [1, '安装进度'],
+    ])
 
     if (!window.system) {
         document.querySelector('#title').innerHTML = `<span>网页里面没有system对象</span>`;
@@ -83,9 +90,15 @@
 
     }
 
-
+    function analyticParams(param) {
+        console.log(nowFeildName);
+    }
+    setTimeout(() => {
+        const nowFeildName = statusEnum.get(1)
+        document.querySelector('#download').value = nowFeildName
+    }, 2000)
     system.onmessage = function(data) {
-        alert(data)
+        analyticParams(data)
         document.querySelector('#log').innerHTML = `<span>${data}</span>`
     }
 </script>
