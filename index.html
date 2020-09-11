@@ -8,6 +8,7 @@
     <style>
         * {
             margin: 0;
+            outline: none;
         }
         
         body {
@@ -60,13 +61,18 @@
 
     let isOpen = false
 
+    const lifeCycle = {
+        now: -1
+    }
+
+
     const statusEnum = new Map([
         [-1, '下载app'],
         [0, '安装'],
         [1, '下载进度:'],
         [2, '继续'],
         [3, '等待中'],
-        [4, '继续'],
+        [4, '继续(下载失败)'],
         [5, '更新'],
         [6, '打开'],
         [7, '安装中']
@@ -103,6 +109,14 @@
             system.postMessage(JSON.stringify({
                 broadcastToQa: {
                     openPkg: {
+                        package: pkg
+                    }
+                }
+            }))
+        } else if (lifeCycle.now === 1) {
+            system.postMessage(JSON.stringify({
+                broadcastToQa: {
+                    downloadPause: {
                         package: pkg
                     }
                 }
@@ -148,7 +162,11 @@
     function setStatusView(status, percent) {
         const nowFeildName = statusEnum.get(status)
 
-        function pause() {
+        function pause(e) {
+            console.log(e);
+            if (e == 'add') {
+
+            }
             document.querySelector('#download').value = '暂停'
         }
         isOpen = false
@@ -156,9 +174,9 @@
             document.querySelector('#download').value = nowFeildName + clearNoNum(percent.toString())
 
             // 状态为下载中时，才绑定暂停事件
-            document.querySelector('#download').addEventListener('click', pause)
+            document.querySelector('#download').addEventListener('click', pause.bind(this, 'add'))
         } else if (status == 6) {
-            document.querySelector('#download').removeEventListener('click', pause)
+            document.querySelector('#download').removeEventListener('click', pause.bind(this, 'remove'))
             document.querySelector('#download').value = nowFeildName
             isOpen = true
         } else {
@@ -178,10 +196,13 @@
                     status,
                     percent
                 } = analyticParamsForStatus(data, 'setSingleDownloadPkgStatus')
+                lifeCycle.now = status
+
                 setStatusView(status, percent)
             }
             if (data.indexOf('hasInstalled') !== -1) {
                 const hasInstalled = analyticParamsForStatus(data, 'hasInstalled')
+                lifeCycle.now = 6
                 if (hasInstalled) {
                     setStatusView(6, '')
                 }
