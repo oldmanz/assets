@@ -56,7 +56,7 @@
     </div>
     <div>
         <input type="button" value="是否安装" class="but" id="verdict" />
-        <div id="install">sss</div>
+        <span id="install">sss</span>
 
     </div>
     <div>
@@ -67,7 +67,7 @@
 
 </body>
 <script>
-    let pkg = `com.tencent.qqlive`
+    let pkg = `com.UCMobile`
     document.querySelector('#inputApp').value = pkg
     let downloadAppStatus = '下载app'
 
@@ -204,7 +204,7 @@
                 const hasInstalled = analyticParamsForStatus(data, 'hasInstalled')
                 lifeCycle.now = 6
                 if (hasInstalled) {
-                    setStatusView(6, '')
+                    setStatusView(6, 100)
                 }
 
 
