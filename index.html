@@ -67,7 +67,7 @@
 
 </body>
 <script>
-    let pkg = `com.changba`
+    let pkg = `com.tencent.qqlive`
     document.querySelector('#inputApp').value = pkg
     let downloadAppStatus = '下载app'
 
@@ -81,7 +81,7 @@
     const statusEnum = new Map([
         [-1, '下载app'],
         [0, '安装'],
-        [1, '下载进度:'],
+        [1, '暂停:'],
         [2, '继续'],
         [3, '等待中'],
         [4, '继续(下载失败)'],
@@ -174,10 +174,11 @@
 
             // 状态为下载中时，才绑定暂停事件
             // document.querySelector('#download').addEventListener('click', pause.bind(this, 'add'))
-        } else if (status == 6 && percent == 100) {
+        } else if (status == 6) {
             // document.querySelector('#download').removeEventListener('click', pause.bind(this, 'remove'))
             document.querySelector('#download').value = nowFeildName
             document.querySelector('#install').innerHTML = `<span>已安装</span>`
+            document.querySelector('#getStatus').value = clearNoNum(percent.toString()) + '%'
             isOpen = true
         } else {
             document.querySelector('#install').innerHTML = `<span>未安装</span>`
