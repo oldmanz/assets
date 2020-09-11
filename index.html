@@ -37,13 +37,13 @@
 </head>
 
 <body>
-    <h4>我是h5+</h4>
+    <h4>我是h5qwqqqq+</h4>
     <div id="title"></div>
     <div id="title2"></div>
     <h5>收到快应用注入的消息：</h5>
     <div id="log"></div>
     <div class="line"></div>
-    <input type="text" value="com.sankuai.meituan" class="but-inp" id="inputApp" />
+    <input type="text" value="com.sankuai.meituan" class="but but-inp" id="inputApp" />
     <input type="button" value="判断app是否安装" class="but" id="verdict" />
     <input type="button" value="下载app" class="but" id="download" />
     <!-- <input type="button" value="获取下载状态" class="but" id="getStatus" /> -->
@@ -141,13 +141,23 @@
 
     function setStatusView(status, percent) {
         const nowFeildName = statusEnum.get(status)
+
+        function pause() {
+            document.querySelector('#download').value = '暂停'
+        }
         isOpen = false
         if (status == 1) {
             document.querySelector('#download').value = nowFeildName + clearNoNum(percent.toString())
+
+            // 状态为下载中时，才绑定暂停事件
+            document.querySelector('#download').addEventListener('click', pause)
         } else if (status == 6) {
+            document.querySelector('#download').removeEventListener('click', pause)
             document.querySelector('#download').value = nowFeildName
             isOpen = true
         } else {
+            document.querySelector('#download').removeEventListener('click', pause)
+
             document.querySelector('#download').value = nowFeildName
         }
 
