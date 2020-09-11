@@ -50,13 +50,24 @@
     <h5>收到快应用注入的消息：</h5>
     <div id="log"></div>
     <div class="line"></div>
-    <input type="text" value="" class="but-inp" id="inputApp" />
-    <input type="button" value="判断app是否安装" class="but" id="verdict" />
-    <input type="button" value="下载app" class="but" id="download" />
-    <input type="button" value="0" class="but" id="getStatus" />
+
+    <div>
+        <input type="text" value="" class="but-inp" id="inputApp" />
+    </div>
+    <div>
+        <input type="button" value="是否安装" class="but" id="verdict" />
+        <div id="install"></div>
+
+    </div>
+    <div>
+        <input type="button" value="下载app" class="but" id="download" />
+        <input type="button" value="0" class="but" id="getStatus" />
+
+    </div>
+
 </body>
 <script>
-    let pkg = `so.ofo.labofo`
+    let pkg = `com.jianshu.haruki`
     document.querySelector('#inputApp').value = pkg
     let downloadAppStatus = '下载app'
 
@@ -156,17 +167,9 @@
 
     function setStatusView(status, percent) {
         const nowFeildName = statusEnum.get(status)
-
-        function pause(e) {
-            console.log(e);
-            if (e == 'add') {
-
-            }
-            document.querySelector('#download').value = '暂停'
-        }
         isOpen = false
         if (status == 1) {
-            document.querySelector('#download').value = nowFeildName + clearNoNum(percent.toString())
+            document.querySelector('#download').value = nowFeildName
             document.querySelector('#getStatus').value = clearNoNum(percent.toString()) + '%'
 
             // 状态为下载中时，才绑定暂停事件
@@ -174,10 +177,10 @@
         } else if (status == 6) {
             // document.querySelector('#download').removeEventListener('click', pause.bind(this, 'remove'))
             document.querySelector('#download').value = nowFeildName
+            document.querySelector('#install').innerHTML = `<span>已安装</span>`
             isOpen = true
         } else {
-            document.querySelector('#download').removeEventListener('click', pause)
-
+            document.querySelector('#install').innerHTML = `<span>未安装</span>`
             document.querySelector('#download').value = nowFeildName
         }
 
