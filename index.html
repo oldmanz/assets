@@ -56,7 +56,7 @@
     </div>
     <div>
         <input type="button" value="是否安装" class="but" id="verdict" />
-        <div id="install"></div>
+        <div id="install">sss</div>
 
     </div>
     <div>
@@ -67,7 +67,7 @@
 
 </body>
 <script>
-    let pkg = `com.jianshu.haruki`
+    let pkg = `com.changba`
     document.querySelector('#inputApp').value = pkg
     let downloadAppStatus = '下载app'
 
@@ -174,7 +174,7 @@
 
             // 状态为下载中时，才绑定暂停事件
             // document.querySelector('#download').addEventListener('click', pause.bind(this, 'add'))
-        } else if (status == 6) {
+        } else if (status == 6 && percent == 100) {
             // document.querySelector('#download').removeEventListener('click', pause.bind(this, 'remove'))
             document.querySelector('#download').value = nowFeildName
             document.querySelector('#install').innerHTML = `<span>已安装</span>`
