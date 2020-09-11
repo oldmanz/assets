@@ -56,7 +56,7 @@
     <!-- <input type="button" value="获取下载状态" class="but" id="getStatus" /> -->
 </body>
 <script>
-    let pkg = `com.sankuai.meituan`
+    let pkg = `com.ximalaya.ting.android`
     let downloadAppStatus = '下载app'
 
     let isOpen = false
@@ -136,16 +136,9 @@
 
     // 获取下载APP的状态
     function analyticParamsForStatus(param, method) {
-
-        // const _p = '{receviewFromQa:{"setSingleDownloadPkgStatus":{"package":"com.baidu.BaiduMap","status":1,"percent":9.399999618530273}}}';
         const p = JSON5.parse(param)
         const methodProtocol = p['receviewFromQa'][method]
-
         return methodProtocol
-    }
-    // 根据不同的状态分别做处置
-    function statusDispose(data) {
-
     }
 
     function clearNoNum(str) {
