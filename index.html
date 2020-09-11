@@ -153,7 +153,10 @@
 
     system.onmessage = function(data) {
         try {
-            if (data.indexOf('setSingleDownloadPkgStatus') !== -1) {
+            if (
+                data.indexOf('setSingleDownloadPkgStatus') !== -1 ||
+                data.indexOf('hasInstalled') !== -1
+            ) {
                 const {
                     status,
                     percent
