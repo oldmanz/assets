@@ -41,7 +41,7 @@
     <div class="line"></div>
     <input type="button" value="判断app是否安装" class="but" id="verdict" />
     <input type="button" value="下载app" class="but" id="download" />
-    <input type="button" value="获取下载状态" class="but" id="getStatus" />
+    <!-- <input type="button" value="获取下载状态" class="but" id="getStatus" /> -->
 </body>
 <script>
     const pkg = `com.baidu.BaiduMap`
@@ -50,7 +50,7 @@
     const statusEnum = new Map([
         [-1, '下载app'],
         [0, '安装'],
-        [1, '安装进度:'],
+        [1, '下载进度:'],
         [2, '继续'],
         [3, '等待中'],
         [4, '继续'],
