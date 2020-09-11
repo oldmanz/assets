@@ -92,8 +92,8 @@
         }
         // 获取下载APP的状态
     function analyticParamsForStatus(param) {
-        const _p = '{receviewFromQa:{"setSingleDownloadPkgStatus":{"package":"com.baidu.BaiduMap","status":1,"percent":9.399999618530273}}}';
-        const p = JSON5.parse(_p)
+        // const _p = '{receviewFromQa:{"setSingleDownloadPkgStatus":{"package":"com.baidu.BaiduMap","status":1,"percent":9.399999618530273}}}';
+        const p = JSON5.parse(param)
         const methodProtocol = p['receviewFromQa'].setSingleDownloadPkgStatus
 
         return methodProtocol
@@ -133,6 +133,11 @@
 
     // }, 500)
     system.onmessage = function(data) {
+        const {
+            status,
+            percent
+        } = analyticParamsForStatus(data)
+        setStatusView(status, percent)
         document.querySelector('#log').innerHTML = `<span>${data}</span>`
     }
 </script>
