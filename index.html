@@ -67,7 +67,7 @@
 
 </body>
 <script>
-    let pkg = `com.taobao.idlefish`
+    let pkg = `com.suning.mobile.ebuy`
     document.querySelector('#inputApp').value = pkg
     let downloadAppStatus = '下载app'
 
@@ -199,6 +199,9 @@
                 lifeCycle.now = 6
                 if (hasInstalled) {
                     setStatusView(6, 100)
+                } else {
+                    setStatusView(-1, 0)
+
                 }
 
 
