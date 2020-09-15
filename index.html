@@ -172,6 +172,7 @@
 
     // 获取下载APP的状态
     function analyticParamsForStatus(param, method) {
+        console.log(param)
         const p = JSON.parse(param)
         const methodProtocol = p['receviewFromQa'][method]
         return methodProtocol
