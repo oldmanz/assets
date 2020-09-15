@@ -205,34 +205,34 @@
     }
 
     system.onmessage = function(data) {
-        try {
-            if (
-                data.indexOf('setSingleDownloadPkgStatus') !== -1
-            ) {
-                const {
-                    status,
-                    percent
-                } = analyticParamsForStatus(data, 'setSingleDownloadPkgStatus')
-                lifeCycle.now = status
+        // try {
+        if (
+            data.indexOf('setSingleDownloadPkgStatus') !== -1
+        ) {
+            const {
+                status,
+                percent
+            } = analyticParamsForStatus(data, 'setSingleDownloadPkgStatus')
+            lifeCycle.now = status
 
-                setStatusView(status, percent)
-            }
-            if (data.indexOf('hasInstalled') !== -1) {
-                const hasInstalled = analyticParamsForStatus(data, 'hasInstalled')
-                lifeCycle.now = 6
-                if (hasInstalled) {
-                    setStatusView(6, 100)
-                } else {
-                    setStatusView(-1, 0)
-
-                }
-
+            setStatusView(status, percent)
+        }
+        if (data.indexOf('hasInstalled') !== -1) {
+            const hasInstalled = analyticParamsForStatus(data, 'hasInstalled')
+            lifeCycle.now = 6
+            if (hasInstalled) {
+                setStatusView(6, 100)
+            } else {
+                setStatusView(-1, 0)
 
             }
 
-        } catch (error) {
 
         }
+
+        // } catch (error) {
+
+        // }
 
 
         document.querySelector('#log').innerHTML = `<span>${data}</span>`
