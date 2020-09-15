@@ -112,9 +112,9 @@
     }
     document.querySelector('#openqa').onclick = function() {
         system.postMessage(JSON.stringify({
-            broadcastToQa: {
-                deeplinkTo: {
-                    path: qa_pkg
+            "broadcastToQa": {
+                "deeplinkTo": {
+                    "path": qa_pkg
                 }
             }
         }))
@@ -129,9 +129,9 @@
     document.querySelector('#verdict').onclick = function() {
 
         system.postMessage(JSON.stringify({
-            broadcastToQa: {
-                verdictPkgExist: {
-                    package: pkg
+            "broadcastToQa": {
+                "verdictPkgExist": {
+                    "package": pkg
                 }
             }
         }))
@@ -142,26 +142,26 @@
         if (isOpen) {
 
             system.postMessage(JSON.stringify({
-                broadcastToQa: {
-                    openPkg: {
-                        package: pkg
+                "broadcastToQa": {
+                    "openPkg": {
+                        "package": pkg
                     }
                 }
             }))
         } else if (lifeCycle.now === 1) {
             system.postMessage(JSON.stringify({
-                broadcastToQa: {
-                    downloadPause: {
-                        package: pkg
+                "broadcastToQa": {
+                    "downloadPause": {
+                        "package": pkg
                     }
                 }
             }))
             lifeCycle.now = -1
         } else {
             system.postMessage(JSON.stringify({
-                broadcastToQa: {
-                    downloadPackage: {
-                        package: pkg
+                "broadcastToQa": {
+                    "downloadPackage": {
+                        "package": pkg
                     }
                 }
             }))
