@@ -40,7 +40,7 @@
             border-bottom: 1px solid #999;
         }
     </style>
-    <script src="https://unpkg.com/json5@^2.0.0/dist/index.min.js"></script>
+    <!-- <script src="https://unpkg.com/json5@^2.0.0/dist/index.min.js"></script> -->
 </head>
 
 <body>
@@ -52,7 +52,7 @@
     <div class="line"></div>
 
     <div>
-        <input type="text" value="" class="but-inp" id="deeplink" />
+        <input type="text" value="http://hapjs.org/app/com.mgtv.quickapp" class="but-inp" id="deeplink" />
         <input type="button" value="打开快应用" class="but" id="openqa" />
     </div>
 
@@ -172,7 +172,7 @@
 
     // 获取下载APP的状态
     function analyticParamsForStatus(param, method) {
-        const p = JSON5.parse(param)
+        const p = JSON.parse(param)
         const methodProtocol = p['receviewFromQa'][method]
         return methodProtocol
     }
