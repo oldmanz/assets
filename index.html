@@ -52,6 +52,14 @@
     <div class="line"></div>
 
     <div>
+        <input type="text" value="" class="but-inp" id="deeplink" />
+        <input type="button" value="打开快应用" class="but" id="openqa" />
+    </div>
+
+
+    <div class="line"></div>
+
+    <div>
         <input type="text" value="" class="but-inp" id="inputApp" />
     </div>
     <div>
@@ -96,6 +104,21 @@
         document.querySelector('#title').innerHTML = `<span>网页已经被注入system对象</span>`;
     }
     const system = window.system;
+
+    let qa_pkg = 'http://hapjs.org/app/com.mgtv.quickapp'
+        // 通过deeplink打开快应用
+    document.querySelector('#deeplink').onchange = function(e) {
+        qa_pkg = this.value
+    }
+    document.querySelector('#openqa').onclick = function() {
+        system.postMessage(JSON.stringify({
+            broadcastToQa: {
+                deeplinkTo: {
+                    path: qa_pkg
+                }
+            }
+        }))
+    }
 
     document.querySelector('#inputApp').onchange = function(e) {
         document.querySelector('#download').value = '下载app'
