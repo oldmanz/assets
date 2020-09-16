@@ -62,7 +62,12 @@
         <input type="text" value="http://hapjs.org/app/com.mgtv.quickapp" class="but-inp" id="getAppStatusIpt" />
         <input type="button" value="获取此快应用的状态" class="but" id="getAppStatus" />
     </div>
+    <div class="line"></div>
 
+    <div>
+        <input type="button" value="获取deeplink参数" class="but" id="getDeepLinkParams" />
+        <div id="deeplink"></div>
+    </div>
 
     <div class="line"></div>
 
@@ -134,6 +139,16 @@
             }))
         }
         // -----------
+        // 获取deeplink参数
+    document.querySelector('#getDeepLinkParams').onclick = function() {
+        system.postMessage(JSON.stringify({
+            "broadcastToQa": {
+                "paramFromDeeplink": ""
+            }
+        }))
+    }
+
+
 
     document.querySelector('#openqa').onclick = function() {
         system.postMessage(JSON.stringify({
