@@ -270,7 +270,10 @@
 
 
         }
+        if (data.indexOf('paramFromDeeplink') !== -1) {
+            document.querySelector('#deeplink').innerHTML = `<span>${data}</span>`
 
+        }
         // } catch (error) {
 
         // }
