@@ -142,7 +142,6 @@
         // 获取deeplink参数
 
     document.querySelector('#deeplink').innerHTML = `<span>网页URI：${location.search}</span>`
-
     document.querySelector('#getDeepLinkParams').onclick = function() {
         system.postMessage(JSON.stringify({
             "broadcastToQa": {
