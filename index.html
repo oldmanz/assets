@@ -140,7 +140,7 @@
         }
         // -----------
         // 获取deeplink参数
-
+    console.log(this.location)
     document.querySelector('#deeplink').innerHTML = `<span>网页URI：${location.search}</span>`
     document.querySelector('#getDeepLinkParams').onclick = function() {
         system.postMessage(JSON.stringify({
