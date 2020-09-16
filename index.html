@@ -56,6 +56,13 @@
         <input type="button" value="打开快应用" class="but" id="openqa" />
     </div>
 
+    <div class="line"></div>
+
+    <div>
+        <input type="text" value="http://hapjs.org/app/com.mgtv.quickapp" class="but-inp" id="getAppStatusIpt" />
+        <input type="button" value="获取此快应用的状态" class="but" id="getAppStatus" />
+    </div>
+
 
     <div class="line"></div>
 
@@ -110,6 +117,24 @@
     document.querySelector('#deeplink').onchange = function(e) {
         qa_pkg = this.value
     }
+
+    // ------ Gets the status of the current app
+    let _status_pkg = 'http://hapjs.org/app/com.mgtv.quickapp'
+    document.querySelector('#getAppStatusIpt').onchange = function(e) {
+        _status_pkg = this.value
+    }
+
+    document.querySelector('#getAppStatus').onclick = function() {
+            system.postMessage(JSON.stringify({
+                "broadcastToQa": {
+                    "getSingleDownloadPkgStatus": {
+                        "package": _status_pkg
+                    }
+                }
+            }))
+        }
+        // -----------
+
     document.querySelector('#openqa').onclick = function() {
         system.postMessage(JSON.stringify({
             "broadcastToQa": {
